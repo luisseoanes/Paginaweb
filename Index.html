@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuelta al Mundo Tours - Vive la Aventura</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warm-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --ocean-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            --sunset-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --shadow: 0 20px 60px rgba(0,0,0,0.1);
+            --shadow-hover: 0 30px 80px rgba(0,0,0,0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: var(--light);
+        }
+
+        
+        /* Header flotante con diseño único */
+        /* Header flotante con diseño único (modificado para cuadros en los links) */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 60px;
+            padding: 12px 20px;
+            z-index: 1000;
+            transition: all 0.35s cubic-bezier(.25,.8,.25,1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar:hover {
+            transform: translateX(-50%) translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.14);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Nav links estilo 'cuadros' (rectángulos con degradado) */
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 90px;
+            height: 46px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.2s;
+            background: linear-gradient(135deg, #6b5bff 0%, #8a3bf0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link i {
+            margin-left: 8px;
+            opacity: 0.9;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(102,126,234,0.18);
+            opacity: 1;
+        }
+
+        /* Optional: different color for active */
+        .nav-link.active {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        /* Hero Section con diseño asimétrico */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            padding: 0 5%;
+            background: var(--ocean-gradient);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 150%;
+            background: var(--primary-gradient);
+            transform: rotate(15deg);
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            padding: 2rem 0;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transition: left 0.4s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--dark);
+            padding: 18px 35px;
+            border: 2px solid rgba(44, 62, 80, 0.3);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--dark);
+            color: white;
+            transform: translateY(-2px);
+            border-color: var(--dark);
+        }
+
+        .hero-visual {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image-container {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            transform: rotate(-5deg);
+            transition: transform 0.5s ease;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .hero-image-container:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-card-1 {
+            top: 10%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .floating-card-2 {
+            bottom: 15%;
+            left: -15%;
+            animation-delay: 2s;
+        }
+
+        /* Sección de destinos con diseño masonry */
+        .destinations {
+            padding: 120px 5% 80px;
+            background: white;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--dark);
+            opacity: 0.7;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-15px) rotate(2deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .destination-card:nth-child(even) {
+            transform: translateY(20px);
+        }
+
+        .destination-card:nth-child(even):hover {
+            transform: translateY(5px) rotate(-2deg);
+        }
+
+        .card-image-container {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .destination-card:hover .card-image {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .destination-card:hover .card-overlay {
+            opacity: 0.8;
+        }
+
+        .overlay-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .destination-card:hover .overlay-text {
+            transform: translateY(0);
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: var(--warm-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-btn {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
+        }
+
+        /* Testimonios con diseño carrusel único */
+        .testimonials {
+            padding: 120px 5%;
+            background: var(--sunset-gradient);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -30%;
+            width: 80%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(-15deg);
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--dark);
+            margin: 2rem 0;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Contacto con diseño split innovador */
+        .contact {
+            padding: 120px 5%;
+            background: var(--dark);
+            color: white;
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .contact-info {
+            position: relative;
+        }
+
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 100px;
+            height: 100px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .contact-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--ocean-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-locations {
+            margin: 3rem 0;
+        }
+
+        .location-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid;
+            border-image: var(--accent-gradient) 1;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .location-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        .location-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #4facfe;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4facfe;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(79, 172, 254, 0.3);
+        }
+
+        /* Footer minimalista */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 5% 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Animaciones */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 100px 5% 50px;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                width: 90%;
+                padding: 12px 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .destinations-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+
+        /* Efectos especiales */
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: parallax 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes parallax {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--primary-gradient);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow-effect:hover::before {
+            opacity: 0.7;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
+            to { box-shadow: 0 0 30px rgba(118, 75, 162, 0.8); }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Navbar flotante -->
+
+    <!-- Navbar flotante -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">✈️ Vuelta al Mundo</a>
+
+            <!-- Links estilo 'cuadrados' -->
+            <ul class="nav-links">
+                <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                <li><a href="#destinos" class="nav-link">Destinos</a></li>
+                <li><a href="#testimonios" class="nav-link">Experiencias</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="parallax-bg"></div>
+        <div class="hero-content">
+            <h1>Vive la Aventura de tu Vida</h1>
+            <p class="hero-subtitle">Descubre destinos increíbles con paquetes todo incluido diseñados para crear recuerdos inolvidables. Tu próxima aventura comienza aquí.</p>
+            <div class="cta-buttons">
+                <a href="#destinos" class="btn-primary glow-effect">
+                    <span>Explorar Destinos</span>
+                    <i class="fas fa-plane"></i>
+                </a>
+                <a href="#contacto" class="btn-secondary">
+                    <span>Contáctanos</span>
+                    <i class="fas fa-phone"></i>
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-image-container">
+                <img src="https://vueltalmundotours.com.co/wp-content/uploads/2024/02/hermosa-piscina-lujo-al-aire-libre-hotel-resort-1024x683.jpg" alt="Destinos de ensueño" class="hero-image">
+            </div>
+            <div class="floating-elements">
+                <div class="floating-card floating-card-1">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-star" style="color: #FFD700;"></i>
+                        <span style="font-weight: 600;">+1000 Clientes Felices</span>
+                    </div>
+                </div>
+                <div class="floating-card floating-card-2">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-map-marked-alt" style="color: #4facfe;"></i>
+                        <span style="font-weight: 600;">50+ Destinos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinos" class="destinations">
+        <div class="section-header">
+            <h2 class="section-title">Destinos que Te Enamorarán</h2>
+            <p class="section-subtitle">Cada destino es una nueva historia esperando ser vivida. Descubre lugares mágicos con nuestros paquetes especialmente diseñados para ti.</p>
+        </div>
+        
+        <div class="destinations-grid">
+            <article class="destination-card">
+                <div class="card-image-container">
+                    <img src="https://vueltalmundotours.com.co/wp-content/uploads/2024/02/hermosa-piscina-lujo-al-aire-libre-hotel-resort-1024x683.jpg" alt="San Andrés" class="card-image">
+                    <div class="card-overlay">
+                        <span class="overlay-text">¡Descubre el Paraíso!</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        🏝️ San Andrés
+                    </h3>
+                    <p class="card-description">
+                        El mar de los siete colores te espera. Cerca de 40 sitios para bucear, las mejores playas del Caribe y una cultura única que te cautivará desde el primer momento.
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-price">$2.590.000</div>
+                        <button class="card-btn">Ver Más</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="destination-card">
+                <div class="card-image-container">
+                    <img src="https://vueltalmundotours.com.co/wp-content/uploads/2024/02/escena-noche-miami-1024x681.jpg" alt="Santa Marta" class="card-image">
+                    <div class="card-overlay">
+                        <span class="overlay-text">¡Puro Sabor Caribeño!</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        🌴 Santa Marta
+                    </h3>
+                    <p class="card-description">
+                        Donde la diversidad cobra vida en cada rincón. Una ciudad mágica que combina historia, cultura y paisajes exuberantes en una experiencia única e inolvidable.
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-price">$1.590.000</div>
+                        <button class="card-btn">Ver Más</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="destination-card">
+                <div class="card-image-container">
+                    <img src="https://vueltalmundotours.com.co/wp-content/uploads/2024/02/sunset-sea-1024x683.jpg" alt="Cartagena" class="card-image">
+                    <div class="card-overlay">
+                        <span class="overlay-text">¡Ciudad Heroica!</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        🏰 Cartagena
+                    </h3>
+                    <p class="card-description">
+                        Historia viva y vida nocturna vibrante. Festivales culturales, arquitectura colonial y playas paradisíacas se combinan en esta joya del Caribe colombiano.
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-price">$1.590.000</div>
+                        <button class="card-btn">Ver Más</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="destination-card">
+                <div class="card-image-container">
+                    <img src="https://vueltalmundotours.com.co/wp-content/uploads/2024/02/Punta-cana-1536x1024.jpg" alt="Punta Cana" class="card-image">
+                    <div class="card-overlay">
+                        <span class="overlay-text">¡Paraíso Todo Incluido!</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        🥥 Punta Cana
+                    </h3>
+                    <p class="card-description">
+                        Kilómetros de arena blanca y aguas cristalinas. Resorts de lujo todo incluido donde el descanso y la relajación alcanzan su máxima expresión.
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-price">$3.990.000</div>
+                        <button class="card-btn">Ver Más</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="destination-card">
+                <div class="card-image-container">
+                    <img src="https://vueltalmundotours.com.co/wp-content/uploads/2024/02/big-ben-westminster-bridge-sunset-london-uk-1024x683.jpg" alt="Europa" class="card-image">
+                    <div class="card-overlay">
+                        <span class="overlay-text">¡Aventura Europea!</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        🗼 Europa
+                    </h3>
+                    <p class="card-description">
+                        Un continente, mil historias. Sumérgete en la diversidad de paisajes, culturas milenarias, arquitectura impresionante y gastronomía exquisita.
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-price">$8.999.000</div>
+                        <button class="card-btn">Ver Más</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="destination-card">
+                <div class="card-image-container">
+                    <img src="https://vueltalmundotours.com.co/wp-content/uploads/2024/02/hermosa-piscina-lujo-al-aire-libre-hotel-resort-1024x683.jpg" alt="Más destinos" class="card-image">
+                    <div class="card-overlay">
+                        <span class="overlay-text">¡Y Muchos Más!</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">
+                        🌍 Más Destinos
+                    </h3>
+                    <p class="card-description">
+                        Cancún, Orlando, Miami y muchos destinos más te esperan. Cada viaje es una nueva oportunidad de crear recuerdos que durarán toda la vida.
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-price">Desde $1.200.000</div>
+                        <button class="card-btn">Explorar</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonios" class="testimonials">
+        <div class="testimonials-container">
+            <div class="section-header">
+                <h2 class="section-title" style="color: var(--dark);">Historias que Inspiran</h2>
+                <p class="section-subtitle" style="color: var(--dark);">Cada testimonio es una historia real de aventura, descubrimiento y felicidad compartida.</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <p class="testimonial-text">
+                        "Nuestra luna de miel en Cancún fue simplemente perfecta gracias a Vuelta al Mundo Tours. Nos trataron como reyes desde el momento en que llegamos, y el resort era paradisíaco. Fue el viaje de ensueño que siempre habíamos imaginado."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">J&A</div>
+                        <div class="author-info">
+                            <h4>Juan y Angélica</h4>
+                            <p>Luna de Miel en Cancún</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <p class="testimonial-text">
+                        "La atención al cliente fue excepcional y todos los detalles estaban perfectamente organizados. Disfrutamos cada momento en Orlando, Florida. Vuelta al Mundo Tours nos ayudó incluso con la gestión de la visa."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AP</div>
+                        <div class="author-info">
+                            <h4>Alejandra Palacio</h4>
+                            <p>Aventura en Orlando</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <p class="testimonial-text">
+                        "Mi viaje a Punta Cana superó todas mis expectativas gracias a su excelente planificación y atención al detalle. Demostraron un profundo conocimiento y pasión por los destinos que ofrecen."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EV</div>
+                        <div class="author-info">
+                            <h4>Erik Villarreal</h4>
+                            <p>Escape a Punta Cana</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <p class="testimonial-text">
+                        "Empresa responsable, la pasé deliciosa en Punta Cana. Responsabilidad y compromiso al 100%. Muy satisfecho con el servicio, son súper recomendados para cualquier destino."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">YS</div>
+                        <div class="author-info">
+                            <h4>Yohany Sepúlveda</h4>
+                            <p>Experiencia en Punta Cana</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <p class="testimonial-text">
+                        "Nos acompañaron de principio a fin en nuestras vacaciones familiares. Siempre atentos a todo lo que necesitábamos. Sin duda son los mejores en el negocio de los viajes."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">FO</div>
+                        <div class="author-info">
+                            <h4>Felipe Ocampo</h4>
+                            <p>Vacaciones Familiares</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <p class="testimonial-text">
+                        "Una agencia confiable que te asesora de la mejor forma para disfrutar unas buenas vacaciones. Mis padres vivieron el paseo de sus vidas. Responsabilidad y dedicación al máximo."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JM</div>
+                        <div class="author-info">
+                            <h4>Jhonatan Muñoz</h4>
+                            <p>Viaje con Padres</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="contact-title">¿Listo para tu Próxima Aventura?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.8;">
+                    Estamos aquí para convertir tus sueños de viaje en realidad. Contáctanos y comencemos a planear la experiencia perfecta para ti.
+                </p>
+                
+                <div class="contact-locations">
+                    <div class="location-item">
+                        <div class="location-title">🏢 Oficina Principal - Cali</div>
+                        <p>Edificio La Juliana, Calle 10 #43-55 Piso 5<br>Comuna 10, Cali, Valle del Cauca</p>
+                    </div>
+                    
+                    <div class="location-item">
+                        <div class="location-title">🌟 Sede Valle de Lili</div>
+                        <p>Calle 54 #94 – 35<br>Valle de Lili, Cali</p>
+                    </div>
+                    
+                    <div class="location-item">
+                        <div class="location-title">🆕 Nueva Sede Medellín</div>
+                        <p>Calle 95 #76 aa -16<br>Medellín, Antioquia</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 2rem; margin-top: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-phone" style="color: #4facfe; font-size: 1.2rem;"></i>
+                        <span>+57 (2) 555-0123</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-envelope" style="color: #4facfe; font-size: 1.2rem;"></i>
+                        <span>info@vueltalmundotours.com.co</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3 style="margin-bottom: 2rem; font-size: 1.5rem; text-align: center;">Solicita tu Cotización Personalizada</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="nombre" placeholder="Tu nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Correo electrónico" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" name="telefono" placeholder="Número de teléfono" required>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="destino" required>
+                            <option value="">¿Cuál es tu destino soñado?</option>
+                            <option value="san-andres">🏝️ San Andrés</option>
+                            <option value="santa-marta">🌴 Santa Marta</option>
+                            <option value="cartagena">🏰 Cartagena</option>
+                            <option value="punta-cana">🥥 Punta Cana</option>
+                            <option value="europa">🗼 Europa</option>
+                            <option value="cancun">🏖️ Cancún</option>
+                            <option value="orlando">🎢 Orlando</option>
+                            <option value="otro">🌍 Otro destino</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" name="mensaje" rows="4" placeholder="Cuéntanos sobre tu viaje ideal... ¿Cuándo quieres viajar? ¿Con cuántas personas? ¿Qué experiencias buscas?" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar Solicitud
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3 style="color: #4facfe; margin-bottom: 1rem;">Vuelta al Mundo Tours</h3>
+                <p>Tu agencia de confianza para experiencias de viaje inolvidables. Más de 10 años creando sueños y conectando personas con el mundo.</p>
+            </div>
+            <div>
+                <h3 style="color: #4facfe; margin-bottom: 1rem;">Nuestros Servicios</h3>
+                <p>Paquetes turísticos • Vuelos • Hoteles • Seguros de viaje • Trámites de visa • Tours personalizados • Asesoría especializada</p>
+            </div>
+            <div>
+                <h3 style="color: #4facfe; margin-bottom: 1rem;">Destinos Populares</h3>
+                <p>San Andrés • Santa Marta • Cartagena • Punta Cana • Europa • Estados Unidos • Cancún • y muchos más...</p>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+        <div style="border-top: 1px solid #333; padding-top: 2rem; margin-top: 2rem; opacity: 0.8;">
+            <p>&copy; 2024 Vuelta al Mundo Tours. Todos los derechos reservados. | Registro Nacional de Turismo | NIT: 123.456.789-0</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cursor personalizado
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Efectos hover para el cursor
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.5)';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxBg = document.querySelector('.parallax-bg');
+            if (parallaxBg) {
+                parallaxBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar animaciones a elementos
+        document.querySelectorAll('.destination-card, .testimonial-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = `all 0.8s ease ${index * 0.1}s`;
+            observer.observe(el);
+        });
+
+        // Formulario de contacto
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Simulación de envío
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> ¡Enviado!';
+                submitBtn.style.background = 'linear-gradient(135deg, #00b894, #00cec9)';
+                
+                setTimeout(() => {
+                    alert('¡Gracias por contactarnos! Te responderemos en las próximas 2 horas con una propuesta personalizada para tu viaje.');
+                    this.reset();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = 'var(--accent-gradient)';
+                }, 1000);
+            }, 2000);
+        });
+
+        // Efectos adicionales para cards
+        document.querySelectorAll('.destination-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Contador animado (simulación)
+        function animateCounter(element, start, end, duration) {
+            let current = start;
+            const increment = (end - start) / (duration / 16);
+            
+            const timer = setInterval(() => {
+                current += increment;
+                element.textContent = Math.floor(current);
+                
+                if (current >= end) {
+                    clearInterval(timer);
+                    element.textContent = end;
+                }
+            }, 16);
+        }
+
+        // Inicializar animaciones cuando la página carga
+        window.addEventListener('load', () => {
+            // Animación de entrada para el navbar
+            document.querySelector('.navbar').style.animation = 'fadeInUp 1s ease-out';
+            
+            // Stagger animation para elementos del hero
+            const heroElements = document.querySelectorAll('.hero-badge, .hero h1, .hero-subtitle, .cta-buttons');
+            heroElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    el.style.transition = 'all 0.8s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+        // Efecto de typing para el título (opcional)
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Easter egg: Konami Code
+        let konamiCode = [];
+        const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konami.join(',')) {
+                document.body.style.animation = 'rainbow 2s ease-in-out';
+                setTimeout(() => {
+                    alert('🎉 ¡Código secreto activado! Obtén un 10% de descuento en tu próximo viaje con el código: EXPLORADOR2024');
+                    document.body.style.animation = '';
+                }, 2000);
+            }
+        });
+
+        // CSS para el easter egg
+        const rainbowStyle = document.createElement('style');
+        rainbowStyle.textContent = `
+            @keyframes rainbow {
+                0% { filter: hue-rotate(0deg); }
+                25% { filter: hue-rotate(90deg); }
+                50% { filter: hue-rotate(180deg); }
+                75% { filter: hue-rotate(270deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(rainbowStyle);
+    </script>
+</body>
+</html>
